@@ -10,10 +10,6 @@ type QuadTree struct {
 	capacity int
 	points   []*Point
 	r        Rectangle
-	x1       int
-	y1       int
-	x2       int
-	y2       int
 	subTrees [4]*QuadTree
 }
 
@@ -111,7 +107,7 @@ func (qt *QuadTree) divide() {
 	qt.subTrees[2] = newChildQuadTree(qt.capacity, nw_r, qt.level+1)
 
 	// SW
-	sw_r, _ := NewRectangle(x1, getMiddle(y1, y2), getMiddle(x1, x2), qt.y2)
+	sw_r, _ := NewRectangle(x1, getMiddle(y1, y2), getMiddle(x1, x2), y2)
 	qt.subTrees[3] = newChildQuadTree(qt.capacity, sw_r, qt.level+1)
 }
 
