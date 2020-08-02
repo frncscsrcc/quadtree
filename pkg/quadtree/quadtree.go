@@ -73,9 +73,9 @@ func (qt *QuadTree) Search(r Rectangle) []*Point {
 	}
 	if qt.subTrees[0] != nil {
 		for _, subTree := range qt.subTrees {
-			subTree_points := subTree.Search(r)
-			if len(subTree_points) > 0 {
-				for _, p := range subTree_points {
+			subTreePoints := subTree.Search(r)
+			if len(subTreePoints) > 0 {
+				for _, p := range subTreePoints {
 					if p.ContainedIn(r) {
 						points = append(points, p)
 					}
@@ -101,20 +101,20 @@ func (qt *QuadTree) divide() {
 	y2 := qt.r.Y2()
 
 	// NE
-	ne_r, _ := NewRectangle(getMiddle(x1, x2)+1, y1, x2, getMiddle(y1, y2))
-	qt.subTrees[0] = newChildQuadTree(qt.capacity, ne_r, qt.level+1)
+	neRectangle, _ := NewRectangle(getMiddle(x1, x2)+1, y1, x2, getMiddle(y1, y2))
+	qt.subTrees[0] = newChildQuadTree(qt.capacity, neRectangle, qt.level+1)
 
 	// SE
-	se_r, _ := NewRectangle(getMiddle(x1, x2)+1, getMiddle(y1, y2)+1, x2, y2)
-	qt.subTrees[1] = newChildQuadTree(qt.capacity, se_r, qt.level+1)
+	seRectangle, _ := NewRectangle(getMiddle(x1, x2)+1, getMiddle(y1, y2)+1, x2, y2)
+	qt.subTrees[1] = newChildQuadTree(qt.capacity, seRectangle, qt.level+1)
 
 	// NW
-	nw_r, _ := NewRectangle(x1, y1, getMiddle(x1, x2), getMiddle(y1, y2))
-	qt.subTrees[2] = newChildQuadTree(qt.capacity, nw_r, qt.level+1)
+	nwRectangle, _ := NewRectangle(x1, y1, getMiddle(x1, x2), getMiddle(y1, y2))
+	qt.subTrees[2] = newChildQuadTree(qt.capacity, nwRectangle, qt.level+1)
 
 	// SW
-	sw_r, _ := NewRectangle(x1, getMiddle(y1, y2)+1, getMiddle(x1, x2), y2)
-	qt.subTrees[3] = newChildQuadTree(qt.capacity, sw_r, qt.level+1)
+	swRectangle, _ := NewRectangle(x1, getMiddle(y1, y2)+1, getMiddle(x1, x2), y2)
+	qt.subTrees[3] = newChildQuadTree(qt.capacity, swRectangle, qt.level+1)
 }
 
 func (qt *QuadTree) ne() *QuadTree {

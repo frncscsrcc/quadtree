@@ -1,7 +1,6 @@
 package quadtree
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -16,10 +15,10 @@ type Rectangle struct {
 // NewRectangle validates the coordinates and returns a new Rectangle object or an error.
 func NewRectangle(x1, y1, x2, y2 int) (Rectangle, error) {
 	if x1 > x2 {
-		return Rectangle{}, errors.New(fmt.Sprintf("invalid rectangle (%d,%d,%d,%d) x1 must be >= x2", x1, y1, x2, y2))
+		return Rectangle{}, fmt.Errorf("invalid rectangle (%d,%d,%d,%d) x1 must be >= x2", x1, y1, x2, y2)
 	}
 	if y1 > y2 {
-		return Rectangle{}, errors.New(fmt.Sprintf("invalid rectangle (%d,%d,%d,%d) y1 must be >= y2", x1, y1, x2, y2))
+		return Rectangle{}, fmt.Errorf("invalid rectangle (%d,%d,%d,%d) y1 must be >= y2", x1, y1, x2, y2)
 	}
 	return Rectangle{x1, y1, x2, y2}, nil
 }
