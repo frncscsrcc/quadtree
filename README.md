@@ -1,6 +1,7 @@
 QuadTree (data structure)
-[![Go Report Card](https://goreportcard.com/badge/github.com/frncscsrcc/quadtree)](https://goreportcard.com/report/github.com/frncscsrcc/quadtree)
 ===
+[![Go Report Card](https://goreportcard.com/badge/github.com/frncscsrcc/quadtree)](https://goreportcard.com/report/github.com/frncscsrcc/quadtree)
+<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-99%25-brightgreen.svg?longCache=true&style=flat)</a>
 
 Implement a quadtree search structure, inspired from the great code challenge https://thecodingtrain.com/CodingChallenges/098.1-quadtree.html
 
