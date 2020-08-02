@@ -2,6 +2,7 @@ package quadtree
 
 import (
 	"errors"
+	"strings"
 	"fmt"
 )
 
@@ -95,11 +96,11 @@ func (qt *QuadTree) divide() {
 	y2 := qt.r.Y2()
 
 	// NE
-	ne_r, _ := NewRectangle(getMiddle(x1, x2), y1, x2, getMiddle(y1, y2))
+	ne_r, _ := NewRectangle(getMiddle(x1, x2) + 1, y1, x2, getMiddle(y1, y2))
 	qt.subTrees[0] = newChildQuadTree(qt.capacity, ne_r, qt.level+1)
 
 	// SE
-	se_r, _ := NewRectangle(getMiddle(x1, x2), getMiddle(y1, y2), x2, y2)
+	se_r, _ := NewRectangle(getMiddle(x1, x2) + 1, getMiddle(y1, y2) +1, x2, y2)
 	qt.subTrees[1] = newChildQuadTree(qt.capacity, se_r, qt.level+1)
 
 	// NW
@@ -107,7 +108,7 @@ func (qt *QuadTree) divide() {
 	qt.subTrees[2] = newChildQuadTree(qt.capacity, nw_r, qt.level+1)
 
 	// SW
-	sw_r, _ := NewRectangle(x1, getMiddle(y1, y2), getMiddle(x1, x2), y2)
+	sw_r, _ := NewRectangle(x1, getMiddle(y1, y2) + 1, getMiddle(x1, x2), y2)
 	qt.subTrees[3] = newChildQuadTree(qt.capacity, sw_r, qt.level+1)
 }
 
@@ -125,33 +126,21 @@ func (qt *QuadTree) sw() *QuadTree {
 }
 
 func (qt *QuadTree) String() string {
-
-	space := func(n int) string {
-		str := ""
-		for i := 0; i < n; i++ {
-			str += "   "
-		}
-		return str
+	if qt == nil {
+		return "nil"
 	}
-
-	str := space(qt.level)
-	for _, p := range qt.points {
-		str += fmt.Sprintf("%v ", p)
+	str := fmt.Sprintf("QT:%d(", qt.level)
+	str += "PS:["
+	pointAsStrings := make([]string, 0)
+	for _, point := range(qt.points){
+		pointAsStrings = append(pointAsStrings, point.String())
 	}
-	if qt.subTrees[0] != nil {
-		str += "\n"
-		if len(qt.ne().points) > 0 {
-			str += space(qt.level) + "NE:\n" + fmt.Sprintf("%v\n", qt.ne())
-		}
-		if len(qt.se().points) > 0 {
-			str += space(qt.level) + "SE:\n" + fmt.Sprintf("%v\n", qt.se())
-		}
-		if len(qt.sw().points) > 0 {
-			str += space(qt.level) + "SW:\n" + fmt.Sprintf("%v\n", qt.sw())
-		}
-		if len(qt.nw().points) > 0 {
-			str += space(qt.level) + "NW:\n" + fmt.Sprintf("%v\n", qt.nw())
-		}
-	}
+	str += strings.Join(pointAsStrings, ", ")
+	str += "], "
+	str += "NE:" + qt.ne().String() + ", "
+	str += "SE:" + qt.se().String() + ", "
+	str += "SW:" + qt.sw().String() + ", "
+	str += "NW:" + qt.nw().String()
+	str += ")"
 	return str
 }

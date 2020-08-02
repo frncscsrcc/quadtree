@@ -41,3 +41,7 @@ func (r Rectangle) Y1() int {
 func (r Rectangle) Y2() int {
 	return r.y2
 }
+
+func (r Rectangle) String() string {
+	return fmt.Sprintf("R(%d, %d, %d, %d)", r.x1, r.y1, r.x2, r.y2)
+}

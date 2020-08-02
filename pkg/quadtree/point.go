@@ -15,7 +15,7 @@ func NewPoint(x int, y int, data interface{}) *Point {
 }
 
 func (p *Point) String() string {
-	return fmt.Sprintf("(%d, %d: %+v)", p.x, p.y, p.data)
+	return fmt.Sprintf("P(%d, %d: %+v)", p.x, p.y, p.data)
 }
 
 func (p *Point) ContainedIn(r Rectangle) bool {
