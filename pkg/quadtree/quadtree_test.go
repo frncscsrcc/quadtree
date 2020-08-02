@@ -105,8 +105,19 @@ func TestAdd(t *testing.T) {
 	r, _ := NewRectangle(0, 0, 100, 100)
 	qt, _ := NewQuadTree(2, r)
 
+
+	p0 := NewPoint(1000, 1000, "P0")
+	p0Success := qt.Add(p0)
+	if p0Success {
+		t.Errorf("%v should not be added (it is out of QuadTree)", p0)
+	}
+
+
 	p1 := NewPoint(1, 1, "P1")
-	qt.Add(p1)
+	p1Success := qt.Add(p1)
+	if !p1Success {
+		t.Errorf("%v should be added", p1)
+	}
 	if !pointsArrayContains(qt, p1) {
 		t.Errorf("%v should be contained in qt.points", p1)
 	}
@@ -124,7 +135,10 @@ func TestAdd(t *testing.T) {
 	}
 
 	p2 := NewPoint(2, 2, "P2")
-	qt.Add(p2)
+	p2Success := qt.Add(p2)
+	if !p2Success {
+		t.Errorf("%v should be added", p2)
+	}
 	if !pointsArrayContains(qt, p2) {
 		t.Errorf("%v should be contained in qt.points", p2)
 	}
@@ -142,7 +156,10 @@ func TestAdd(t *testing.T) {
 	}
 
 	p3 := NewPoint(3, 3, "P3")
-	qt.Add(p3)
+	p3Success := qt.Add(p3)
+	if !p3Success {
+		t.Errorf("%v should be added", p3)
+	}
 	if pointsArrayContains(qt, p3) {
 		t.Errorf("%v should not be contained in qt.points", p3)
 	}
