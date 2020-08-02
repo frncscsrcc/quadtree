@@ -1,4 +1,5 @@
 QuadTree (data structure)
+[![Go Report Card](https://goreportcard.com/badge/github.com/frncscsrcc/quadtree)](https://goreportcard.com/report/github.com/frncscsrcc/quadtree)
 ===
 
 Implement a quadtree search structure, inspired from the great code challenge https://thecodingtrain.com/CodingChallenges/098.1-quadtree.html
