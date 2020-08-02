@@ -37,7 +37,7 @@ func TestString(t *testing.T) {
 	qt, _ := NewQuadTree(1, r)
 
 	type formatChecker struct {
-		newPoint *Point
+		newPoint       *Point
 		expectedString string
 	}
 
@@ -47,28 +47,26 @@ func TestString(t *testing.T) {
 			"QT:0(PS:[], NE:nil, SE:nil, SW:nil, NW:nil)",
 		},
 		formatChecker{
-			NewPoint(10,10,"P1"),
+			NewPoint(10, 10, "P1"),
 			"QT:0(PS:[P(10, 10: P1)], NE:nil, SE:nil, SW:nil, NW:nil)",
 		},
 		formatChecker{
-			NewPoint(90,10,"P2"),
+			NewPoint(90, 10, "P2"),
 			"QT:0(PS:[P(10, 10: P1)], NE:QT:1(PS:[P(90, 10: P2)], NE:nil, SE:nil, SW:nil, NW:nil), SE:QT:1(PS:[], NE:nil, SE:nil, SW:nil, NW:nil), SW:QT:1(PS:[], NE:nil, SE:nil, SW:nil, NW:nil), NW:QT:1(PS:[], NE:nil, SE:nil, SW:nil, NW:nil))",
 		},
 	}
 
-	for testNumber, test := range(tests){
+	for testNumber, test := range tests {
 		if test.newPoint != nil {
 			qt.Add(test.newPoint)
 		}
 		returnedString := qt.String()
-		if  returnedString != test.expectedString {
+		if returnedString != test.expectedString {
 			t.Errorf("Qrong String for qt in case %d. Expected %s, returned %s", testNumber, test.expectedString, returnedString)
 		}
 	}
 
-
 }
-
 
 func TestNewChildQuadTree(t *testing.T) {
 	r, _ := NewRectangle(0, 0, 100, 100)
@@ -205,7 +203,6 @@ func TestDivide(t *testing.T) {
 	}
 }
 
-
 func TestSearch(t *testing.T) {
 
 	allPointsAreFound := func(qt *QuadTree, r Rectangle, expected []*Point) bool {
@@ -217,9 +214,9 @@ func TestSearch(t *testing.T) {
 			return true
 		}
 
-		for _, expectedPoint := range(expected) {
+		for _, expectedPoint := range expected {
 			found := false
-			for _, resultPoint := range(result){
+			for _, resultPoint := range result {
 				if resultPoint == expectedPoint {
 					found = true
 					break
@@ -237,10 +234,10 @@ func TestSearch(t *testing.T) {
 	r, _ := NewRectangle(0, 0, 100, 100)
 	qt, _ := NewQuadTree(capacity, r)
 
-	P1 := NewPoint(10,10,"P1")
-	P2 := NewPoint(40,40,"P2")
-	P3 := NewPoint(60,60,"P3")
-	P4 := NewPoint(90,90,"P4")
+	P1 := NewPoint(10, 10, "P1")
+	P2 := NewPoint(40, 40, "P2")
+	P3 := NewPoint(60, 60, "P3")
+	P4 := NewPoint(90, 90, "P4")
 
 	qt.Add(P1)
 	qt.Add(P2)
@@ -248,22 +245,22 @@ func TestSearch(t *testing.T) {
 	qt.Add(P4)
 
 	r1, _ := NewRectangle(0, 0, 100, 100)
-	if !allPointsAreFound(qt, r1, []*Point{P1, P2, P3, P4}){
+	if !allPointsAreFound(qt, r1, []*Point{P1, P2, P3, P4}) {
 		t.Errorf("Not all points returned for searching box %v", r1)
 	}
 
 	r2, _ := NewRectangle(0, 0, 50, 50)
-	if !allPointsAreFound(qt, r2, []*Point{P1, P2}){
+	if !allPointsAreFound(qt, r2, []*Point{P1, P2}) {
 		t.Errorf("Not all points returned for searching box %v", r2)
 	}
 
 	r3, _ := NewRectangle(30, 30, 70, 70)
-	if !allPointsAreFound(qt, r3, []*Point{P2, P3}){
+	if !allPointsAreFound(qt, r3, []*Point{P2, P3}) {
 		t.Errorf("Not all points returned for searching box %v", r3)
 	}
 
 	r4, _ := NewRectangle(95, 95, 0, 0)
-	if !allPointsAreFound(qt, r4, []*Point{}){
+	if !allPointsAreFound(qt, r4, []*Point{}) {
 		t.Errorf("Not all points returned for searching box %v", r4)
 	}
 
