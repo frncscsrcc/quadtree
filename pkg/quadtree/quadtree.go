@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// QuadTree reppresent quadtree object that can contains Points objects
 type QuadTree struct {
 	level    int
 	capacity int
@@ -14,6 +15,8 @@ type QuadTree struct {
 	subTrees [4]*QuadTree
 }
 
+// NewQuadTree returns a new pointer to a Quadtree object, defining the capacity and
+// the size of the searching space, as rectangle.
 func NewQuadTree(capacity int, r Rectangle) (*QuadTree, error) {
 	if capacity <= 0 {
 		return &QuadTree{}, errors.New("capacity need to be > 0")
@@ -37,6 +40,7 @@ func newChildQuadTree(capacity int, r Rectangle, level int) *QuadTree {
 	return &qt
 }
 
+// Add adds a point to the quadtree
 func (qt *QuadTree) Add(point *Point) bool {
 	if !point.ContainedIn(qt.r) {
 		return false
@@ -56,6 +60,7 @@ func (qt *QuadTree) Add(point *Point) bool {
 	return false
 }
 
+// Search returns the point incuded in a rectangle search area.
 func (qt *QuadTree) Search(r Rectangle) []*Point {
 	points := make([]*Point, 0)
 	if !qt.intersect(r) {
@@ -125,6 +130,7 @@ func (qt *QuadTree) sw() *QuadTree {
 	return qt.subTrees[3]
 }
 
+// String formats the QuadTree object as a "nice" string
 func (qt *QuadTree) String() string {
 	if qt == nil {
 		return "nil"
